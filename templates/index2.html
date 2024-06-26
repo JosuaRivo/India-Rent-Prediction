@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Indian Rent Prediction</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-flask-v1.0.8/css/soft-ui-dashboard.css?v=1.0.6" rel="stylesheet">
+    <link href="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-flask-v1.0.8/css/dark-theme-core.css" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="background-image" style="background-image: url('https://img.freepik.com/free-photo/elevated-view-calculator-math-blocks-stacked-coins-key-with-home-sale-icon_23-2147863935.jpg?t=st=1715438406~exp=1715442006~hmac=c6f3e26afb0d5de9d2823d3d22560ad266a376ded5b6f5faf117074561b64bb1&w=1060');
+                                           background-size: cover;
+                                           background-position: center;
+                                           background-repeat: no-repeat;
+                                           position: fixed;
+                                           top: 0;
+                                           left: 0;
+                                           width: 50%;
+                                           height: 100%;
+                                           z-index: -1;"></div>
+    <main class="main-content mt-0" style="position: fixed; top: 0; left: 50%; width: 50%; height: 100%; overflow-y: auto;">
+        <section>
+            <div class="page-header min-vh-75">
+                <div class="container">
+                    <div class="row">
+                            <div class="card card-plain mt-8" style="margin-top: -20px;">
+                                <div class="card-header pb-0 text-center bg-transparent">
+                                    <h3 class="font-weight-bolder text-info text-gradient">House Price Prediction in India</h3>
+                                </div>
+                            <div class="card-body">
+                                    <form action="/predict" method="post" class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="BHK" class="form-label">Bedroom</label>
+                                            <input class="form-control" id="BHK" name="BHK" placeholder="Input Bedroom" required type="number">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Size" class="form-label">Size</label>
+                                            <input class="form-control" id="Size" name="Size" placeholder="Input Size" required type="number">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Bathroom" class="form-label">Bathroom</label>
+                                            <input class="form-control" id="Bathroom" name="Bathroom" placeholder="Input Bathroom" required type="number">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="AreaType" class="form-label">Area Type</label>
+                                            <select class="form-select" id="AreaType" name="AreaType" required>
+                                                <option value="" disabled selected>Select Area Type</option>
+                                                <option value="Built Area">Built Area</option>
+                                                <option value="Carpet Area">Carpet Area</option>
+                                                <option value="Super Area">Super Area</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="City" class="form-label">City</label>
+                                            <select class="form-select" id="City" name="City" required>
+                                                <option value="" disabled selected>Select City</option>
+                                                <option value="Bangalore">Bangalore</option>
+                                                <option value="Chennai">Chennai</option>
+                                                <option value="Delhi">Delhi</option>
+                                                <option value="Hyderabad">Hyderabad</option>
+                                                <option value="Kolkata">Kolkata</option>
+                                                <option value="Mumbai">Mumbai</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="FurnishingStatus" class="form-label">Furnishing Status</label>
+                                            <select class="form-select" id="FurnishingStatus" name="FurnishingStatus" required>
+                                                <option value="" disabled selected>Select Furnishing Status</option>
+                                                <option value="Furnished">Furnished</option>
+                                                <option value="Semi-Furnished">Semi-Furnished</option>
+                                                <option value="Unfurnished">Unfurnished</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="TenantPreferred" class="form-label">Tenant Preferred</label>
+                                            <select class="form-select" id="TenantPreferred" name="TenantPreferred" required>
+                                                <option value="" disabled selected>Select Tenant Preferred</option>
+                                                <option value="Bachelors">Bachelors</option>
+                                                <option value="Bachelors/Family">Bachelors/Family</option>
+                                                <option value="Family">Family</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="PointOfContact" class="form-label">Point of Contact</label>
+                                            <select class="form-select" id="PointOfContact" name="PointOfContact" required>
+                                                <option value="" disabled selected>Select Point of Contact</option>
+                                                <option value="Contact Agent">Contact Agent</option>
+                                                <option value="Contact Builder">Contact Builder</option>
+                                                <option value="Contact Owner">Contact Owner</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Predict</button>
+                                        </div>
+                                    </form>
+
+                                    <!-- Display prediction result -->
+                                    <div class="prediction text-center">
+                                        <h5>From the data above, you can predict the rental price</h5>
+                                        {% if prediction_result is not none %}
+                                        <h2 class="text-info">Rent: {{ prediction_result }}</h2>
+                                        {% else %}
+                                        <h2 class="text-info">Unknown</h2>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
+                    <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4"><span class="text-lg fab fa-dribbble"></span></a>
+                    <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4"><span class="text-lg fab fa-twitter"></span></a>
+                    <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4"><span class="text-lg fab fa-instagram"></span></a>
+                    <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4"><span class="text-lg fab fa-pinterest"></span></a>
+                    <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4"><span class="text-lg fab fa-github"></span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-flask-v1.0.8/js/core/popper.min.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-flask-v1.0.8/js/core/bootstrap.min.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-flask-v1.0.8/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-flask-v1.0.8/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-flask-v1.0.8/js/dark-mode-handler.js"></script>
+</body>
+</html>
